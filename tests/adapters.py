@@ -4,11 +4,14 @@ import os
 from collections.abc import Iterable
 from typing import IO, Any, BinaryIO
 
-import numpy.typing as npt
+import numpy.typing as npt # type: ignore
 import torch
 from jaxtyping import Bool, Float, Int
 from torch import Tensor
 
+import regex as re
+from cs336_basics.BPETokenizer import BPETokenizer
+from cs336_basics.Tokenizer import Tokenizer
 
 def run_linear(
     d_in: int,
@@ -559,8 +562,7 @@ def get_tokenizer(
     Returns:
         A BPE tokenizer that uses the provided vocab, merges, and special tokens.
     """
-    raise NotImplementedError
-
+    return Tokenizer(vocab=vocab, merges=merges, special_tokens=special_tokens)
 
 def run_train_bpe(
     input_path: str | os.PathLike,
@@ -589,4 +591,9 @@ def run_train_bpe(
                 representing that <token1> was merged with <token2>.
                 Merges are ordered by order of creation.
     """
-    raise NotImplementedError
+
+    tokenizer = BPETokenizer(vocab_size=vocab_size, special_tokens=special_tokens)
+    tokenizer.train_from_file(input_path)
+
+    # tests 只关心 (vocab, merges)
+    return (tokenizer.vocab, tokenizer.merges)

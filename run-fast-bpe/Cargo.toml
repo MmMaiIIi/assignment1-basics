@@ -1,0 +1,11 @@
+[package]
+name = "cs336_basics-fast-bpe"   # 随便，但一般这么写
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "cs336_basics_fast_bpe"   # 这里决定 .so/.pyd 的模块名
+crate-type = ["cdylib"]
+
+[dependencies]
+pyo3 = { version = "0.22", features = ["extension-module"] }

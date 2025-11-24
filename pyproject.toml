@@ -50,3 +50,6 @@ extend-select = ["UP"]
 ignore = [
     "F722"
 ]
+
+[tool.maturin]
+module-name = "cs336_basics.fast_bpe"
